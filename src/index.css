@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-grotesk: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Custom luxury color palette */
+  --color-spa-obsidian: #0D0C0A; /* Deep opulent luxurious base black */
+  --color-spa-bronze: #1A1814; /* Secondary dark color */
+  --color-spa-gold: #D4AF37; /* Metallic classic gold */
+  --color-spa-gold-light: #F4E2AC; /* Warm bright gold for highlights */
+  --color-spa-cream: #FAF7F0; /* Soft soothing cream linen background */
+  --color-spa-sand: #DFD5C6; /* Calm medium sand beige tone */
+  --color-spa-charcoal: #25231F; /* Card backgrounds/borders */
+}
+
+/* Custom global styles to maintain luxury look */
+html {
+  scroll-behavior: smooth;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+body {
+  background-color: var(--color-spa-obsidian);
+  color: var(--color-spa-cream);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Gold light shimmering glow effects for call to actions */
+@keyframes shimmerGold {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.gold-shimmer {
+  background: linear-gradient(120deg, #D4AF37 30%, #FAF7F0 50%, #D4AF37 70%);
+  background-size: 200% auto;
+  animation: shimmerGold 6s linear infinite;
+}
+
+.gold-shimmer:hover {
+  animation: shimmerGold 1.5s linear infinite;
+}
