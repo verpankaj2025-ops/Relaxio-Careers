@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { CheckCircle2, ChevronRight, Sparkles, MessageSquare, Briefcase } from "lucide-react";
 import { JOB_OPENINGS, buildWhatsAppLink } from "../data";
+import { JOB_URLS } from "../seoLinks";
 
 interface JobOpeningsProps {
   onSelectRole: (role: string) => void;
@@ -113,6 +114,15 @@ export default function JobOpenings({ onSelectRole }: JobOpeningsProps) {
                       {tag}
                     </span>
                   ))}
+                </div>
+
+                <div className="mb-4">
+                  <a
+                    href={JOB_URLS[job.id as keyof typeof JOB_URLS]}
+                    className="inline-flex items-center text-sm font-bold text-spa-gold underline underline-offset-4 hover:text-spa-gold-light"
+                  >
+                    View full job details →
+                  </a>
                 </div>
 
                 {/* Direct Action buttons */}

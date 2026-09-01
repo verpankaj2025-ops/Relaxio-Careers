@@ -28,6 +28,8 @@ export const JOB_OPENINGS: JobOpening[] = [
     id: "massage-therapist",
     title: "Female Massage Therapist",
     salary: "₹35,000 - ₹55,000 + High Incentives",
+    salaryMin: 35000,
+    salaryMax: 55000,
     experience: "Freshers & Experienced Candidates (Training Provided)",
     description: "Perform premium therapeutic spa treatments including Swedish, Deep Tissue, Thai, and Aromatherapy. Provide visual luxury service while adhering to traditional wellness principles for our VIP clients.",
     requirements: [
@@ -42,6 +44,8 @@ export const JOB_OPENINGS: JobOpening[] = [
     id: "spa-staff",
     title: "Female Spa Specialist & Therapist",
     salary: "₹30,000 - ₹45,000 + Daily Tips",
+    salaryMin: 30000,
+    salaryMax: 45000,
     experience: "Experienced or Enthusiastic Freshers",
     description: "Deliver luxurious body scrubs, steam bath management, facial therapies, and assist in setting up treatment rooms with candles, essential oils, and premium wellness tools.",
     requirements: [
@@ -56,6 +60,8 @@ export const JOB_OPENINGS: JobOpening[] = [
     id: "receptionist",
     title: "Female Front Desk Receptionist",
     salary: "₹25,000 - ₹35,000 + Performance Bonus",
+    salaryMin: 25000,
+    salaryMax: 35000,
     experience: "0 - 3 Years of Customer Service / Hospitality Experience",
     description: "Manage front-desk operations, handle booking inquiries via phone, welcome VIP guests in luxury attire, and coordinate treatment scheduling for female massage therapists.",
     requirements: [
@@ -70,6 +76,8 @@ export const JOB_OPENINGS: JobOpening[] = [
     id: "wellness-consultant",
     title: "Female Wellness & Spa Consultant",
     salary: "₹32,000 - ₹50,000 + Booking Incentives",
+    salaryMin: 32000,
+    salaryMax: 50000,
     experience: "1+ Years in hospitality, fitness, or luxury salons",
     description: "Consult with clients to recommend appropriate therapeutic packages, customized aromatherapy sessions, and spa benefits, ensuring a super-premium standard of customer delight.",
     requirements: [

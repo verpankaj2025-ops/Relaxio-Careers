@@ -68,6 +68,26 @@ export default function Footer() {
               </a>
             </li>
             <li>
+              <a href="/female-spa-jobs-lucknow/" className="hover:text-spa-gold transition-colors">
+                Female Spa Jobs in Lucknow
+              </a>
+            </li>
+            <li>
+              <a href="/spa-jobs-for-freshers-lucknow/" className="hover:text-spa-gold transition-colors">
+                Spa Jobs for Freshers
+              </a>
+            </li>
+            <li>
+              <a href="/spa-jobs-with-accommodation/" className="hover:text-spa-gold transition-colors">
+                Jobs With Accommodation
+              </a>
+            </li>
+            <li>
+              <a href="/spa-jobs-india/" className="hover:text-spa-gold transition-colors">
+                Apply From Anywhere in India
+              </a>
+            </li>
+            <li>
               <a href="#apply-form-section" className="hover:text-spa-gold transition-colors">
                 ✍ Apply Online Form
               </a>

@@ -10,9 +10,31 @@ import ApplicationForm from "./components/ApplicationForm";
 import FAQs from "./components/FAQs";
 import Footer from "./components/Footer";
 import WhatsAppFloat from "./components/WhatsAppFloat";
+import JobPage from "./pages/JobPage";
+import RecruitmentLandingPage from "./pages/RecruitmentLandingPage";
 
-export default function App() {
-  // Conversional funnel state: tracking role auto-selection from Vacancies cards
+function getPathname(): string {
+  return window.location.pathname.replace(/\/+$/, "") || "/";
+}
+
+const JOB_ROUTES: Record<string, string> = {
+  "/female-massage-therapist-jobs-lucknow": "massage-therapist",
+  "/female-spa-specialist-jobs-lucknow": "spa-staff",
+  "/female-spa-receptionist-jobs-lucknow": "receptionist",
+  "/female-wellness-consultant-jobs-lucknow": "wellness-consultant",
+};
+
+const LANDING_ROUTES: Record<
+  string,
+  "hub" | "freshers" | "accommodation" | "india"
+> = {
+  "/female-spa-jobs-lucknow": "hub",
+  "/spa-jobs-for-freshers-lucknow": "freshers",
+  "/spa-jobs-with-accommodation": "accommodation",
+  "/spa-jobs-india": "india",
+};
+
+function MainHome() {
   const [selectedRole, setSelectedRole] = useState("");
 
   const handleRoleSelection = (roleTitle: string) => {
@@ -21,38 +43,34 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-spa-obsidian font-sans text-spa-cream selection:bg-spa-gold selection:text-spa-obsidian">
-      {/* 1. Injects SEO head dynamic triggers, JSON-LD microdata schema */}
       <SEOHead />
-
-      {/* 2. Sticky branding navigation header */}
       <Header />
-
-      {/* 3. Luxury visual hero section */}
       <Hero />
-
-      {/* 4. Elegant career benefits grid */}
       <Benefits />
-
-      {/* 5. Live vacancies cards (bridges roles selection state to form) */}
       <JobOpenings onSelectRole={handleRoleSelection} />
-
-      {/* 6. Legal and safety eligibility section */}
       <Eligibility />
-
-      {/* 7. Workplace respect, verified clients, and stats metrics */}
       <WhyJoin />
-
-      {/* 8. Conversional application form with success callback modules */}
       <ApplicationForm selectedRoleFromOpening={selectedRole} />
-
-      {/* 9. Interactive FAQs block using motion collapse */}
       <FAQs />
-
-      {/* 10. Polished semantic directory footer */}
       <Footer />
-
-      {/* 11. Sticky WhatsApp and dialing CTA overlay */}
       <WhatsAppFloat />
     </div>
   );
+}
+
+export default function App() {
+  const pathname = getPathname();
+  const jobId = JOB_ROUTES[pathname];
+
+  if (jobId) {
+    return <JobPage jobId={jobId} />;
+  }
+
+  const landingPage = LANDING_ROUTES[pathname];
+
+  if (landingPage) {
+    return <RecruitmentLandingPage type={landingPage} />;
+  }
+
+  return <MainHome />;
 }

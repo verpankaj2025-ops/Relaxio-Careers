@@ -2,6 +2,8 @@ export interface JobOpening {
   id: string;
   title: string;
   salary: string;
+  salaryMin: number;
+  salaryMax: number;
   experience: string;
   requirements: string[];
   description: string;
