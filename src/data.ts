@@ -1,7 +1,7 @@
 import { JobOpening, FAQItem, BenefitItem } from "./types";
 
 export const BRAND_NAME = "Relaxio Spa & Wellness";
-export const WHATSAPP_NUMBER = "+919580267625";
+export const WHATSAPP_NUMBER = "+918303720883";
 export const RECRUITMENT_EMAIL = "s80891433@gmail.com";
 
 const WHATSAPP_WA_ME_ID = WHATSAPP_NUMBER.replace(/\D/g, "");
