@@ -1,17 +1,17 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import SEOHead from "./components/SEOHead";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import Benefits from "./components/Benefits";
-import JobOpenings from "./components/JobOpenings";
-import Eligibility from "./components/Eligibility";
-import WhyJoin from "./components/WhyJoin";
-import ApplicationForm from "./components/ApplicationForm";
-import FAQs from "./components/FAQs";
-import Footer from "./components/Footer";
-import WhatsAppFloat from "./components/WhatsAppFloat";
-import JobPage from "./pages/JobPage";
-import RecruitmentLandingPage from "./pages/RecruitmentLandingPage";
+const Benefits = lazy(() => import("./components/Benefits"));
+const JobOpenings = lazy(() => import("./components/JobOpenings"));
+const Eligibility = lazy(() => import("./components/Eligibility"));
+const WhyJoin = lazy(() => import("./components/WhyJoin"));
+const ApplicationForm = lazy(() => import("./components/ApplicationForm"));
+const FAQs = lazy(() => import("./components/FAQs"));
+const Footer = lazy(() => import("./components/Footer"));
+const WhatsAppFloat = lazy(() => import("./components/WhatsAppFloat"));
+const JobPage = lazy(() => import("./pages/JobPage"));
+const RecruitmentLandingPage = lazy(() => import("./pages/RecruitmentLandingPage"));
 
 function getPathname(): string {
   return window.location.pathname.replace(/\/+$/, "") || "/";
@@ -46,14 +46,21 @@ function MainHome() {
       <SEOHead />
       <Header />
       <Hero />
-      <Benefits />
-      <JobOpenings onSelectRole={handleRoleSelection} />
-      <Eligibility />
-      <WhyJoin />
-      <ApplicationForm selectedRoleFromOpening={selectedRole} />
-      <FAQs />
-      <Footer />
-      <WhatsAppFloat />
+
+      <Suspense
+        fallback={
+          <div className="min-h-[240px] bg-spa-obsidian" aria-hidden="true" />
+        }
+      >
+        <Benefits />
+        <JobOpenings onSelectRole={handleRoleSelection} />
+        <Eligibility />
+        <WhyJoin />
+        <ApplicationForm selectedRoleFromOpening={selectedRole} />
+        <FAQs />
+        <Footer />
+        <WhatsAppFloat />
+      </Suspense>
     </div>
   );
 }
@@ -63,13 +70,33 @@ export default function App() {
   const jobId = JOB_ROUTES[pathname];
 
   if (jobId) {
-    return <JobPage jobId={jobId} />;
+    return (
+      <Suspense
+        fallback={
+          <div className="min-h-screen bg-spa-obsidian text-spa-cream flex items-center justify-center">
+            Loading careers page...
+          </div>
+        }
+      >
+        <JobPage jobId={jobId} />
+      </Suspense>
+    );
   }
 
   const landingPage = LANDING_ROUTES[pathname];
 
   if (landingPage) {
-    return <RecruitmentLandingPage type={landingPage} />;
+    return (
+      <Suspense
+        fallback={
+          <div className="min-h-screen bg-spa-obsidian text-spa-cream flex items-center justify-center">
+            Loading careers page...
+          </div>
+        }
+      >
+        <RecruitmentLandingPage type={landingPage} />
+      </Suspense>
+    );
   }
 
   return <MainHome />;

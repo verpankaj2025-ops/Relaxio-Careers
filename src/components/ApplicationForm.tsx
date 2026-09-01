@@ -28,30 +28,66 @@ export default function ApplicationForm({ selectedRoleFromOpening }: Application
     }
   }, [selectedRoleFromOpening]);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
+    setSubmitSuccess(false);
 
-    // Simple Form Validations
     if (!name.trim()) return setError("Please enter your name");
-    if (!phone.trim() || phone.length < 10) return setError("Please enter a valid 10-digit mobile number");
-    if (!age || parseInt(age) < 18 || parseInt(age) > 45) return setError("Applicant age must be between 18 and 45");
-    if (!experience) return setError("Please choose prior therapy experience status");
-    if (!city.trim()) return setError("Please enter your current city location");
+    if (!/^\\d{10}$/.test(phone)) {
+      return setError("Please enter a valid 10-digit mobile number");
+    }
+    if (!age || parseInt(age, 10) < 18 || parseInt(age, 10) > 45) {
+      return setError("Applicant age must be between 18 and 45");
+    }
+    if (!experience) {
+      return setError("Please choose prior therapy experience status");
+    }
+    if (!city.trim()) {
+      return setError("Please enter your current city location");
+    }
 
     setIsSubmitting(true);
 
-    // Simulate submission loading for premium UX
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const response = await fetch("/api/apply", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          phone,
+          age,
+          experience,
+          role,
+          city: city.trim(),
+          website: "",
+        }),
+      });
+
+      const result = (await response.json()) as {
+        success?: boolean;
+        message?: string;
+      };
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.message || "Application could not be submitted.",
+        );
+      }
+
       setSubmitSuccess(true);
-      
-      // Save locally to maintain state persistence on refresh/test
-      const payload = { name, phone, age, experience, role, city, date: new Date().toISOString() };
-      const currentHistory = JSON.parse(localStorage.getItem("relaxio_apps") || "[]");
-      currentHistory.push(payload);
-      localStorage.setItem("relaxio_apps", JSON.stringify(currentHistory));
-    }, 1500);
+    } catch (submitError) {
+      console.error("Application submission failed:", submitError);
+      setError(
+        submitError instanceof Error
+          ? submitError.message
+          : "Application could not be submitted. Please use WhatsApp.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const resetForm = () => {
@@ -282,7 +318,7 @@ export default function ApplicationForm({ selectedRoleFromOpening }: Application
                     <div className="space-y-2">
                       <h3 className="font-serif text-3xl font-bold text-white">Application Received!</h3>
                       <p className="text-sm text-spa-sand/80 max-w-md mx-auto leading-relaxed">
-                        Excellent, <strong className="text-white">{name}</strong>! Your application profile for the <strong className="text-spa-gold font-serif">{role}</strong> role has been securely saved in our Lucknow system database.
+                        Excellent, <strong className="text-white">{name}</strong>! Your application for the <strong className="text-spa-gold font-serif">{role}</strong> role has been sent to our recruitment team. We will contact you by phone or WhatsApp.
                       </p>
                     </div>
 
