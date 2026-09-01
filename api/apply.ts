@@ -67,7 +67,11 @@ export default {
     }
 
     const name = text(body.name);
-    const phone = text(body.phone);
+    const rawPhone = text(body.phone);
+    const phone = rawPhone
+      .replace(/\\D/g, "")
+      .replace(/^91(?=\\d{10}$)/, "");
+
     const age = Number(text(body.age));
     const role = text(body.role);
     const experience = text(body.experience);

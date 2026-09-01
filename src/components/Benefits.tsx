@@ -1,11 +1,29 @@
 import { motion } from "motion/react";
-import * as Lucide from "lucide-react";
+import {
+  CalendarDays,
+  GraduationCap,
+  Home,
+  IndianRupee,
+  ShieldCheck,
+  Sparkles,
+  TrendingUp,
+} from "lucide-react";
 import { BENEFITS } from "../data";
 
-// Helper component to render Lucide icons based on string names correctly
+const BENEFIT_ICONS = {
+  IndianRupee,
+  ShieldCheck,
+  Sparkles,
+  Home,
+  GraduationCap,
+  CalendarDays,
+  TrendingUp,
+} as const;
+
 function BenefitIcon({ name }: { name: string }) {
-  const IconComponent = (Lucide as any)[name];
-  if (!IconComponent) return <Lucide.Sparkles className="w-6 h-6 text-spa-gold" />;
+  const IconComponent =
+    BENEFIT_ICONS[name as keyof typeof BENEFIT_ICONS] ?? Sparkles;
+
   return <IconComponent className="w-6 h-6 text-spa-gold" />;
 }
 

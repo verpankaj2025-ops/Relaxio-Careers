@@ -34,7 +34,9 @@ export default function ApplicationForm({ selectedRoleFromOpening }: Application
     setSubmitSuccess(false);
 
     if (!name.trim()) return setError("Please enter your name");
-    if (!/^\\d{10}$/.test(phone)) {
+    const normalizedPhone = phone.replace(/\\D/g, "").replace(/^91(?=\\d{10}$)/, "");
+
+    if (!/^\\d{10}$/.test(normalizedPhone)) {
       return setError("Please enter a valid 10-digit mobile number");
     }
     if (!age || parseInt(age, 10) < 18 || parseInt(age, 10) > 45) {
@@ -57,7 +59,7 @@ export default function ApplicationForm({ selectedRoleFromOpening }: Application
         },
         body: JSON.stringify({
           name: name.trim(),
-          phone,
+          phone: normalizedPhone,
           age,
           experience,
           role,
